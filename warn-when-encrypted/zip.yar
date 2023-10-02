@@ -1,9 +1,9 @@
 rule Warn_When_Encrypted_ZIP
 {
-	meta:
-		author = "tweedge"
-		description = "Detects encrypted ZIP files. This means few or no security vendors will scan this file, because they can't read what's in it! Make sure you trust this file."
-		date = "2023-10-02"
+    meta:
+        author = "tweedge"
+        description = "Detects encrypted ZIP files. This means few or no security vendors will scan this file, because they can't read what's in it! Make sure you trust this file."
+        date = "2023-10-02"
 
     strings:
         $zip_header = { 50 4b 03 04 }

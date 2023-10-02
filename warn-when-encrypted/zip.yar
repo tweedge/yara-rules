@@ -7,8 +7,18 @@ rule Warn_When_Encrypted_ZIP
 
     strings:
         $zip_header = { 50 4b 03 04 }
+        $empty_zip_header = { 50 4b 05 06 }
+        $spanned_zip_header = { 50 4b 07 08 }
 
     condition:
+        // check that one of the ZIP headers is in the magic number position
+        // thanks to: https://github.com/Kamrion/yara.magic
+        (
+            $zip_header at 0 or
+            $empty_zip_header at 0 or
+            $spanned_zip_header at 0
+        ) and
+
         // iterate over ZIP headers in the file
         for any i in (1..#zip_header):
         (
